@@ -44,141 +44,191 @@ This project is part of the **Data Analytics** initiative in the **Sales** secti
 ## 📁 **Project Structure**
 
 
-Sales-Analytics-Dashboard/
-│
-├── Excel-dashboard.png          # Screenshot of the dashboard
-├── Sales_Data_Analytics.xlsx    # Main Excel file (data + dashboard)
-└── README.md                    # Project documentation (this file)
-
-
-
-> ✅ **Note**: The **entire project** (raw data, pivot tables, charts, and dashboard) is contained in a **single Excel file** for ease of use and distribution.
-
+Sales.xlsx
+├── Fact_table          # Raw transactional data (Order ID, Product, Customer, Sales Person, Quantity, Payment Method, etc.)
+├── Product             # Product master data (Product ID, Name, Category, Sales Price, Cost Price)
+├── Pivot               # PivotTables for aggregated analysis (Sales, Costs, Returns by Salesperson, Category, etc.)
+└── Dashboard           # Interactive dashboard with visualizations and KPIs
 ---
 
-## 🚀 **How to Use**
-
-### 1. **Open the Excel File**
-- Open `Sales_Data_Analytics.xlsx` in Microsoft Excel (Macros must be enabled).
-
-### 2. **Enable Macros**
-- If prompted, **enable macros** to allow automation scripts to run.
-- Go to **File > Options > Trust Center > Trust Center Settings > Macro Settings** and select **"Enable all macros"**.
-
-### 3. **Explore the Dashboard**
-- Navigate to the **Dashboard** sheet.
-- Use **slicers** on the left to filter by:
-  - Year / Quarter
-  - Category
-  - Payment Method
-  - Salesperson
-- All charts and tables update **automatically** based on selected filters.
-
-### 4. **Update Data**
-- Paste new sales data into the **Fact_table** sheet (ensure format consistency).
-- Run the **"Refresh All"** macro (or press `Alt + F8`, select `RefreshAllData`, and click **Run**) to update all pivot tables and charts.
-
-### 5. **Clear Filters**
-- Use the **"Clear All Filters"** macro to reset all slicers to default (all items selected).
-
----
-
-## 📈 **Dashboard Overview**
-
-![Sales Dashboard](Excel-dashboard.png)
-
-### **Key Metrics Displayed**
-
-| Metric | Description |
-|-------|-------------|
-| **Total Sales** | Gross revenue from all orders. |
-| **Total Cost** | Total cost of goods sold. |
-| **Total Returns** | Total value of returned items. |
-| **Units Sold** | Total quantity of products sold. |
-| **Average Sales** | Average order value. |
-| **Order Volume** | Total number of orders processed. |
-
-### **Visualizations**
-- **Sales by Salesperson** – Bar chart ranking sales performance.
-- **Sales and Cost Trend** – Line chart showing monthly sales vs. cost.
-- **Average Sales and Returns Trend** – Dual-axis chart tracking average sales and return values over time.
-- **Payment Composition** – Donut chart of payment method distribution.
-- **Top 4 Products by Sales** – Horizontal bar chart of best-selling products.
-- **Returns by Category** – Bar chart showing return values per product category.
-
----
-
-## 🔗 **Data Relationships Diagram**
+## 🔗 Data Relationship Diagram
 
 ```mermaid
 erDiagram
-    FACT_TABLE ||--o{ PRODUCT : ""
-    FACT_TABLE ||--o{ SALESPERSON : ""
-    FACT_TABLE ||--o{ CUSTOMER : ""
-    FACT_TABLE ||--o{ CATEGORY : ""
-    FACT_TABLE ||--o{ PAYMENT_METHOD : ""
-    PRODUCT ||--o{ CATEGORY : ""
+    Fact_table ||--o{ Product : "contains"
+    Fact_table {
+        int Order_ID PK
+        int Product_ID FK
+        int Customer_ID
+        int Sales_Person_ID
+        int Quantity_Sold
+        string Payment_Method
+        int Quantity_Returned
+        date Order_Date
+        decimal Sales_Amount
+        decimal Cost_Amount
+        decimal Return_Amount
+    }
+    Product {
+        int Product_ID PK
+        string Product_Name
+        string Category
+        decimal Sales_Price
+        decimal Cost_Price
+    }
 
 ````
-🧩 Macros Included
+
+
+Key Relationships:
+
+Each transaction in Fact_table references a product in the Product table via Product_ID.
+Fact_table contains all transactional metrics (sales, costs, returns).
+Product table serves as the dimension table for product details.
+
+
+📊 Dashboard Preview
+The dashboard includes the following visualizations and metrics:
+
+
+  
+    
+      Metric
+      Description
+    
+  
+  
+    
+      Total Sales
+      $2,218,091.58 (2023–2026)
+    
+    
+      Total Cost
+      $1,268,584.00
+    
+    
+      Total Returns
+      $949,508.00
+    
+    
+      Units Sold
+      249,185
+    
+    
+      Average Sales
+      $110.90 per order
+    
+    
+      Order Volume
+      20,000 orders
+    
+  
+
+
+
+Visualizations
+
+Sales by Salesperson: Bar chart ranking sales performance.
+Sales and Cost Trend: Line chart showing monthly trends.
+Average Sales & Returns Trend: Dual-axis line chart for comparative analysis.
+Payment Composition: Pie chart of payment method distribution.
+Top 4 Products by Sales: Horizontal bar chart of best-selling products.
+Returns by Category: Bar chart of return values per product category.
+
+🛠️ Technologies & Tools
+
+Microsoft Excel (PivotTables, Charts, Slicers, Conditional Formatting)
+VBA (Visual Basic for Applications) (Macros for automation)
+Data Validation (Dropdown filters for dynamic selection)
+
+🚀 Setup & Usage
+Prerequisites
+
+Microsoft Excel (2016 or later recommended for full macro support).
+Enable Macros in Excel settings (required for automation).
+How to Use
+
+
+Open the File:
+
+Launch Sales.xlsx in Excel.
+Enable macros when prompted.
+
+
+Refresh Data:
+
+Press Alt + F8, select the "Refresh_Data" macro, and click Run.
+This updates all PivotTables and charts with the latest data.
+
+
+Reset Filters:
+
+Press Alt + F8, select the "Clear_Filters" macro, and click Run.
+This removes all applied filters to restore the default view.
+
+
+Interact with the Dashboard:
+
+Use the slicers on the left to filter by:
+
+Payment Method (Cash, Credit Card, Debit Card, Online Payment)
+Year (2023, 2024, 2025, 2026)
+Quarter (Q1, Q2, Q3, Q4)
+Category (Soft Drink, Sports Drink, Tea, Water, Alcoholic Beverage, Coffee, Juice)
+
+
+
+🤖 Macros
 
 
   
     
       Macro Name
       Purpose
+      Shortcut
     
   
   
     
-      RefreshAllData
-      Refreshes all pivot tables, charts, and slicers with updated data
+      Refresh_Data
+      Updates all PivotTables, charts, and calculations with the latest data.
+      Alt + F8 → Run
     
     
-      ClearAllFilters
-      Resets all slicers to show all data (no filters applied)
-    
-    
-      UpdateDashboard
-      Recalculates all formulas and updates dashboard visuals
+      Clear_Filters
+      Removes all applied filters to reset the dashboard view.
+      Alt + F8 → Run
     
   
 
 
 
 
-🔐 Security Note: Macros are used solely for automation within the workbook. Always review macro code before enabling if received from untrusted sources.
+Note: Macros are password-protected. Ensure macros are enabled in Excel settings.
 
 
-📊 Insights & Use Cases
+📈 Key Insights
 
-Performance Tracking: Identify top-performing salespersons and products.
-Cost Management: Monitor cost trends and their impact on profitability.
-Return Analysis: Detect categories or products with high return rates.
-Payment Preferences: Understand customer payment behavior.
-Time-Based Trends: Analyze seasonal or quarterly sales patterns.
+Cash is the most used payment method, accounting for the largest share of total orders.
+Total returns of $949.5K present a significant opportunity for improvement in product quality or customer satisfaction.
+Top products contribute evenly to total sales, suggesting a balanced product portfolio.
+Sales trends show seasonal fluctuations, with peaks in specific quarters.
 
-📥 How to Contribute
+🤝 Contributing
+Contributions are welcome! To contribute:
 
 Fork the repository.
-Clone your fork locally.
-Update the Excel file with new data or improvements.
-Commit your changes with clear messages.
-Push to your fork and submit a Pull Request.
+Create a new branch (git checkout -b feature/your-feature).
+Commit your changes (git commit -m "Add: Your feature description").
+Push to the branch (git push origin feature/your-feature).
+Open a Pull Request.
 
-⚠️ Ensure all macros are tested and data formats remain consistent.
+Note: Ensure all macros are documented and tested before submission.
 
-
-📞 Support & Contact
-For questions, suggestions, or issues related to this project:
-
-Open an Issue in the GitHub repository.
-Refer to the Data Analytics section in Notion (Sales) for additional context and updates.
 
 📜 License
-This project is intended for internal use within the Data Analytics team. Distribution outside the organization requires prior approval.
+This project is proprietary and intended for internal use within the Data Analytics team. Unauthorized distribution or modification is prohibited.
 
-
-✅ Built with Excel | 📊 Powered by Data | 🚀 Driven by Insights"
-
+📧 Contact
+For questions or support, refer to the Sales Analytics section in Notion.
 
