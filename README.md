@@ -46,7 +46,7 @@ This project is part of the **Data Analytics** initiative in the **Sales** secti
 ````
 
 Sales/
-├── Sales.xlsx          # Main Excel file containing:
+├── Sales Business Intelligence.xlsm          # Main Excel file containing:
 │   ├── Fact_table      # Raw transactional data (orders, sales, returns)
 │   ├── Product         # Product master data (ID, name, category, price, cost)
 │   ├── Pivot           # PivotTables for aggregated analysis
