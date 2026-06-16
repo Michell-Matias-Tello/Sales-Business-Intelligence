@@ -40,16 +40,23 @@ This project is part of the **Data Analytics** initiative in the **Sales** secti
 - **Data Validation** – Ensures consistency in categories, payment methods, and dates.
 
 ---
+## 🗂️ Project Structure
 
-## 📁 **Project Structure**
 
+````
 
-Sales.xlsx
-├── Fact_table          # Raw transactional data (Order ID, Product, Customer, Sales Person, Quantity, Payment Method, etc.)
-├── Product             # Product master data (Product ID, Name, Category, Sales Price, Cost Price)
-├── Pivot               # PivotTables for aggregated analysis (Sales, Costs, Returns by Salesperson, Category, etc.)
-└── Dashboard           # Interactive dashboard with visualizations and KPIs
+Sales/
+├── Sales.xlsx          # Main Excel file containing:
+│   ├── Fact_table      # Raw transactional data (orders, sales, returns)
+│   ├── Product         # Product master data (ID, name, category, price, cost)
+│   ├── Pivot           # PivotTables for aggregated analysis
+│   └── Dashboard       # Interactive visual dashboard
+└── README.md           # Project documentation (this file)
+
+````
 ---
+
+
 
 ## 🔗 Data Relationship Diagram
 
@@ -82,153 +89,140 @@ erDiagram
 
 Key Relationships:
 
-Each transaction in Fact_table references a product in the Product table via Product_ID.
-Fact_table contains all transactional metrics (sales, costs, returns).
-Product table serves as the dimension table for product details.
+- Each transaction in Fact_table references a product in the Product table via Product_ID.
+- Fact_table contains all transactional metrics (sales, costs, returns).
+- Product table serves as the dimension table for product details.
 
+---
 
-📊 Dashboard Preview
-The dashboard includes the following visualizations and metrics:
+## 🖼️ **Dashboard Preview**
+![Sales Dashboard](Excel-dashboard.png)
 
+### **Key Visualizations**
+1. **KPIs Overview**
+   - Total Sales: **$2,218,092**
+   - Total Cost: **$1,268,584**
+   - Total Returns: **$949,508**
+   - Units Sold: **249,185**
+   - Average Sales per Order: **$110.90**
+   - Order Volume: **20,000**
 
-  
-    
-      Metric
-      Description
-    
-  
-  
-    
-      Total Sales
-      $2,218,091.58 (2023–2026)
-    
-    
-      Total Cost
-      $1,268,584.00
-    
-    
-      Total Returns
-      $949,508.00
-    
-    
-      Units Sold
-      249,185
-    
-    
-      Average Sales
-      $110.90 per order
-    
-    
-      Order Volume
-      20,000 orders
-    
-  
+2. **Sales by Salesperson**
+   - Bar chart ranking sales performance across 10 salespersons.
 
+3. **Sales and Cost Trend**
+   - Line chart tracking monthly sales vs. costs (Jan–Dec).
 
+4. **Average Sales and Returns Trend**
+   - Dual-axis chart for average sales and returns over time.
 
-Visualizations
+5. **Payment Composition**
+   - Pie chart showing distribution by payment method (Cash, Credit Card, Debit Card, Online Payment).
 
-Sales by Salesperson: Bar chart ranking sales performance.
-Sales and Cost Trend: Line chart showing monthly trends.
-Average Sales & Returns Trend: Dual-axis line chart for comparative analysis.
-Payment Composition: Pie chart of payment method distribution.
-Top 4 Products by Sales: Horizontal bar chart of best-selling products.
-Returns by Category: Bar chart of return values per product category.
+6. **Top 4 Products by Sales**
+   - Horizontal bar chart highlighting best-selling products.
 
-🛠️ Technologies & Tools
+7. **Returns by Category**
+   - Bar chart for return values across product categories.
 
-Microsoft Excel (PivotTables, Charts, Slicers, Conditional Formatting)
-VBA (Visual Basic for Applications) (Macros for automation)
-Data Validation (Dropdown filters for dynamic selection)
+---
+## 🛠️ **Technologies & Tools**
+- **Microsoft Excel** (PivotTables, Slicers, Charts)
+- **VBA Macros** (Automation for data refresh and filter management)
+- **Power Pivot** (Data modeling for relationships)
+- **Conditional Formatting** (Dynamic highlighting)
 
-🚀 Setup & Usage
-Prerequisites
+---
+## 🚀 **How to Use**
 
-Microsoft Excel (2016 or later recommended for full macro support).
-Enable Macros in Excel settings (required for automation).
-How to Use
+### **1. Setup**
+- Open `Sales.xlsx` in **Microsoft Excel** (2016 or later recommended).
+- Enable **Macros** (Required for automation):
+  - Go to `File > Options > Trust Center > Trust Center Settings > Macro Settings`.
+  - Select **Enable all macros** (for trusted files).
 
+### **2. Data Refresh**
+- **Manual Update**:
+  - Replace the raw data in the `Fact_table` and `Product` sheets with your dataset.
+  - Ensure column headers match the existing structure.
+- **Automated Update**:
+  - Press `Alt + F8`, select the **`RefreshData`** macro, and click **Run**.
+  - *Note: Macros are pre-configured to update PivotTables and charts.*
 
-Open the File:
+### **3. Filtering**
+- Use the **slicers** (left panel) to filter by:
+  - **Payment Method** (Cash, Credit Card, Debit Card, Online Payment)
+  - **Year** (2023–2026)
+  - **Quarter** (Q1–Q4)
+  - **Category** (Soft Drink, Sports Drink, Tea, Water, etc.)
+  - **Salesperson** (1–10)
 
-Launch Sales.xlsx in Excel.
-Enable macros when prompted.
+- To **reset all filters**, run the **`ClearFilters`** macro (`Alt + F8`).
 
+### **4. Dashboard Navigation**
+- The **Dashboard** sheet auto-updates based on applied filters.
+- Hover over charts for detailed tooltips.
 
-Refresh Data:
+---
+## 📊 **Data Dictionary**
 
-Press Alt + F8, select the "Refresh_Data" macro, and click Run.
-This updates all PivotTables and charts with the latest data.
+### **Fact_table**
+   Column | Type | Description |
+ |--------|------|-------------|
+ | `OrderID` | Integer | Unique identifier for each order. |
+ | `ProductID` | Integer | Foreign key linking to `Product` table. |
+ | `CustomerID` | Integer | Unique identifier for the customer. |
+ | `Category` | String | Product category (e.g., Soft Drink, Tea). |
+ | `SalesPerson` | String | Identifier for the salesperson. |
+ | `QuantitySold` | Integer | Number of units sold. |
+ | `PaymentMethod` | String | Payment type (Cash, Credit Card, etc.). |
+ | `QuantityReturned` | Integer | Number of units returned. |
+ | `OrderDate` | Date | Date of the transaction. |
+ | `Month` | String | Month extracted from `OrderDate`. |
+ | `Year` | Integer | Year extracted from `OrderDate`. |
+ | `Quarter` | String | Quarter (Q1–Q4) extracted from `OrderDate`. |
+ | `SalesAmount` | Float | Total sales value (`QuantitySold * SalesPrice`). |
+ | `CostAmount` | Float | Total cost value (`QuantitySold * CostPrice`). |
+ | `ReturnAmount` | Float | Total return value (`QuantityReturned * SalesPrice`). |
 
+### **Product**
+ | Column | Type | Description |
+ |--------|------|-------------|
+ | `ProductID` | Integer | Unique identifier for the product. |
+ | `ProductName` | String | Name of the product. |
+ | `Category` | String | Product category. |
+ | `SalesPrice` | Float | Selling price per unit. |
+ | `CostPrice` | Float | Cost price per unit. |
 
-Reset Filters:
+---
+## 🔧 **Macros**
+ | Macro Name | Description |
+ |------------|-------------|
+ | `RefreshData` | Updates all PivotTables, charts, and calculations. |
+ | `ClearFilters` | Resets all slicers and filters to default. |
 
-Press Alt + F8, select the "Clear_Filters" macro, and click Run.
-This removes all applied filters to restore the default view.
+> **Note**: Macros are **password-protected** (if applicable). Contact the project maintainer for access.
 
+---
+## 📈 **Key Insights**
+- **Top Payment Method**: Cash (31% of transactions).
+- **Highest Returns**: Alcoholic Beverage category.
+- **Peak Sales Month**: December (highest sales and cost values).
+- **Best-Selling Category**: Soft Drinks (highest contribution to total sales).
 
-Interact with the Dashboard:
-
-Use the slicers on the left to filter by:
-
-Payment Method (Cash, Credit Card, Debit Card, Online Payment)
-Year (2023, 2024, 2025, 2026)
-Quarter (Q1, Q2, Q3, Q4)
-Category (Soft Drink, Sports Drink, Tea, Water, Alcoholic Beverage, Coffee, Juice)
-
-
-
-🤖 Macros
-
-
-  
-    
-      Macro Name
-      Purpose
-      Shortcut
-    
-  
-  
-    
-      Refresh_Data
-      Updates all PivotTables, charts, and calculations with the latest data.
-      Alt + F8 → Run
-    
-    
-      Clear_Filters
-      Removes all applied filters to reset the dashboard view.
-      Alt + F8 → Run
-    
-  
-
-
-
-
-Note: Macros are password-protected. Ensure macros are enabled in Excel settings.
-
-
-📈 Key Insights
-
-Cash is the most used payment method, accounting for the largest share of total orders.
-Total returns of $949.5K present a significant opportunity for improvement in product quality or customer satisfaction.
-Top products contribute evenly to total sales, suggesting a balanced product portfolio.
-Sales trends show seasonal fluctuations, with peaks in specific quarters.
-
-🤝 Contributing
+---
+## 🤝 **Contributing**
 Contributions are welcome! To contribute:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -m "Add your feature"`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a Pull Request.
 
-Fork the repository.
-Create a new branch (git checkout -b feature/your-feature).
-Commit your changes (git commit -m "Add: Your feature description").
-Push to the branch (git push origin feature/your-feature).
-Open a Pull Request.
+---
+## 📜 **License**
+This project is **proprietary** and intended for internal use. Unauthorized distribution or modification is prohibited.
 
-Note: Ensure all macros are documented and tested before submission.
-
-
-📜 License
-This project is proprietary and intended for internal use within the Data Analytics team. Unauthorized distribution or modification is prohibited.
-
-📧 Contact
-For questions or support, refer to the Sales Analytics section in Notion.
-
+---
+## 📧 **Contact**
+For questions or support, refer to the **Sales Analytics** section in **Notion**.
