@@ -3,7 +3,7 @@
 > **Professional Excel-based Sales Analytics Project** – A comprehensive **Data Analytics** solution for tracking, analyzing, and visualizing sales performance, costs, returns, and trends using **Pivot Tables, Filters, and VBA Macros** in a single Excel workbook.
 
 --- 
-
+ 
 ## 📌 **About the Project**
 
 This project is part of the **Data Analytics** initiative in the **Sales** section. It provides a **centralized, interactive Excel dashboard** to monitor key sales metrics, enabling data-driven decision-making.
@@ -45,7 +45,7 @@ This project is part of the **Data Analytics** initiative in the **Sales** secti
 
 ````
 
-
+Sales/
 ├── Sales Business Intelligence.xlsm         # Main Excel file containing:
 │   ├── Fact_table      # Raw transactional data (orders, sales, returns)
 │   ├── Product         # Product master data (ID, name, category, price, cost)
