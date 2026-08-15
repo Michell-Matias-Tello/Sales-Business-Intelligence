@@ -2,7 +2,7 @@
 
 > **Professional Excel-based Sales Analytics Project** – A comprehensive **Data Analytics** solution for tracking, analyzing, and visualizing sales performance, costs, returns, and trends using **Pivot Tables, Filters, and VBA Macros** in a single Excel workbook.
 
----
+--- 
 
 ## 📌 **About the Project**
 
